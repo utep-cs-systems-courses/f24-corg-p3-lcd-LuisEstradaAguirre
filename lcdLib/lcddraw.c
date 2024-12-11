@@ -94,6 +94,24 @@ void drawString5x7(u_char col, u_char row, char *string,
   }
 }
 
+void drawChar8x12(u_char rcol, u_char rrow, char c, u_int fgColorBGR, u_int bgColorBGR) {
+    u_char col = 0, row = 0;
+    u_char oc = c - 0x20; // Offset for ASCII
+    for (row = 0; row < 12; row++) { // Loop over 12 rows
+        u_char line = font_8x12[oc][row]; // Get bitmap for the current row
+        for (col = 0; col < 8; col++) { // Loop over 8 columns
+            u_int colorBGR = (line & (1 << (7 - col))) ? fgColorBGR : bgColorBGR;
+            drawPixel(rcol + col, rrow + row, colorBGR);
+        }
+    }
+}
+
+void drawString8x12(u_char col, u_char row, char *string, u_int fgColorBGR, u_int bgColorBGR) {
+    while (*string) {
+        drawChar8x12(col, row, *string++, fgColorBGR, bgColorBGR);
+        col += 8; // Move to the next character position
+    }
+}
 
 /** Draw rectangle outline
  *  

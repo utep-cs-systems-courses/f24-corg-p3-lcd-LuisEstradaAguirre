@@ -53,24 +53,24 @@ short drawPos[2] = {1,10}, controlPos[2] = {2, 10};
 short colVelocity = 1, colLimits[2] = {1, screenWidth/2};
 
 void
-draw_ball(int col, int row, unsigned short color)
+draw_bird(int col, int row, unsigned short color)
 {
   fillRectangle(col-1, row-1, 3, 3, color);
 }
 
 
 void
-screen_update_ball()
+screen_update_bird()
 {
   for (char axis = 0; axis < 2; axis ++) 
     if (drawPos[axis] != controlPos[axis]) /* position changed? */
       goto redraw;
   return;			/* nothing to do */
  redraw:
-  draw_ball(drawPos[0], drawPos[1], COLOR_BLUE); /* erase */
+  draw_bird(drawPos[0], drawPos[1], COLOR_BLUE); /* erase */
   for (char axis = 0; axis < 2; axis ++) 
     drawPos[axis] = controlPos[axis];
-  draw_ball(drawPos[0], drawPos[1], COLOR_WHITE); /* draw */
+  draw_bird(drawPos[0], drawPos[1], COLOR_WHITE); /* draw */
 }
   
 
@@ -163,7 +163,7 @@ screen_update_hourglass()
 void
 update_shape()
 {
-  screen_update_ball();
+  screen_update_bird();
   screen_update_hourglass();
 }
    
